@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">BankIt</string>
+    <string name="title_activity_main">BankIt</string>
+    <string name="package_name">com.BankIt.app</string>
+    <string name="custom_url_scheme">com.BankIt.app</string>
+</resources>

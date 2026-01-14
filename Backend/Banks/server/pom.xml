@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.bankB</groupId>
-	<artifactId>server</artifactId>
+	<artifactId>HDFC</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>server</name>
     <description>Demo project for Spring Boot</description>
@@ -27,7 +27,7 @@
         <url/>
     </scm>
     <properties>
-        <java.version>23</java.version>
+        <java.version>21</java.version>
     </properties>
     <dependencies>
         <dependency>
