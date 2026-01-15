@@ -117,32 +117,28 @@ export const Accounts = () => {
           </div>
 
           {/* Accounts List */}
-          {filteredAccounts.length === 0 ? (
-            <div className="bg-white rounded-xl p-12 text-center border border-gray-200">
-              <CreditCard className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
-                No accounts found
-              </h3>
-              <p className="text-gray-600">
-                {filter === 'ALL'
-                  ? "You don't have any active accounts yet."
-                  : `You don't have any ${
-                      filter === 'SA'
-                        ? 'savings accounts'
-                        : 'fixed deposits'
-                    }.`}
-              </p>
+           {accounts.length === 0 ? (
+        <div className="bg-white rounded-2xl p-14 text-center border border-gray-200">
+          <CreditCard className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            No accounts found
+          </h3>
+          <p className="text-gray-600">
+            You don’t have any active accounts yet.
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {accounts.map(account => (
+            <div
+              key={account.account_no}
+              className="hover:-translate-y-1 transition-all duration-200"
+            >
+              <AccountCard account={account} />
             </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredAccounts.map((account) => (
-                <AccountCard
-                  key={account.account_no}
-                  account={account}
-                />
-              ))}
-            </div>
-          )}
+          ))}
+        </div>
+      )}
         </div>
       </div>
     </>

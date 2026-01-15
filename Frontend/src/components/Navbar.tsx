@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { LogOut, User, LayoutDashboard, CreditCard, Landmark } from 'lucide-react';
-
+import logo from '../assets/bankit_logo1.png';
 export const Navbar = () => {
   const { customer, logout } = useAuth();
   const navigate = useNavigate();
@@ -15,11 +15,13 @@ export const Navbar = () => {
     <nav className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <Link to="/dashboard" className="flex items-center space-x-2">
-            <Landmark className="h-8 w-8 text-blue-600" />
-            <span className="text-xl font-bold text-gray-900">BankIt</span>
-          </Link>
-
+          <div className="flex  mt-3 ml-0 ">
+           <img
+                src={logo}
+                alt="BankIt Logo"
+                className="h-56 w-56 object-contain"
+              />
+          </div>
           <div className="hidden md:flex items-center space-x-6">
             <Link
               to="/dashboard"

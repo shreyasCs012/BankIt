@@ -13,11 +13,8 @@ function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/accounts" element={<Accounts />} />
       <Route path="/profile" element={<Profile />} />
-<Route path="/accounts/:accountNo" element={<AccountDetail />} />
-
-
+      <Route path="/accounts/:accountNo" element={<AccountDetail />} />
     </Routes>
   );
 }
-
 export default App;

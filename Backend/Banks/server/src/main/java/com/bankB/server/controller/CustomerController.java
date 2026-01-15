@@ -16,6 +16,9 @@ public class CustomerController {
     public MainCustomer profile(
             @RequestHeader("X-Bank-Customer-Id") Long customerId
     ) {
+        System.out.println("✅ SBI SERVICE HIT (8082)");
+        System.out.println("CustomerId = " + customerId);
+
         return cust.getCustomerById(customerId);
     }
 }

@@ -71,106 +71,145 @@ export const Dashboard = () => {
 
   return (
     <>
-      <Navbar />
-      <div className="min-h-screen bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Welcome back, {customer?.customer_name?.split(' ')[0]}
-            </h1>
-            <p className="text-gray-600">
-              Here's an overview of your banking activity
+   <>
+  <Navbar />
+
+  <div className="min-h-screen bg-[#F6F7FB]">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+      {/* Header */}
+      <div className="mb-10">
+        <h1 className="text-3xl font-bold text-gray-900 mb-1">
+          Welcome back, {customer?.customer_name?.split(' ')[0]}
+        </h1>
+        <p className="text-gray-600">
+          Here’s an overview of your banking activity
+        </p>
+      </div>
+
+      {/* Error */}
+      {error && (
+        <div className="mb-6 flex items-center gap-2 p-4 bg-red-50 border border-red-200 rounded-xl">
+          <AlertCircle className="h-5 w-5 text-red-600" />
+          <p className="text-sm text-red-800">{error}</p>
+        </div>
+      )}
+
+      {/* Summary Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+
+        {/* Total Balance */}
+        <div className="relative overflow-hidden rounded-2xl p-6 text-white shadow-xl
+                        bg-gradient-to-br from-purple-600 via-purple-700 to-purple-800">
+
+          <div className="absolute -top-16 -right-16 w-40 h-40 bg-white/10 rounded-full" />
+
+          <div className="relative z-10">
+            <div className="p-3 bg-white/20 rounded-xl w-fit mb-4">
+              <Wallet className="h-6 w-6" />
+            </div>
+
+            <p className="text-purple-200 text-sm mb-1">Total Balance</p>
+
+            <p className="text-4xl font-extrabold tracking-tight">
+              {formatCurrency(
+                summary?.total_balance ?? calculateTotalBalance()
+              )}
+            </p>
+
+            <p className="text-xs text-purple-200 mt-2">
+              Updated just now
             </p>
           </div>
+        </div>
 
-          {error && (
-            <div className="mb-6 flex items-center space-x-2 p-4 bg-red-50 border border-red-200 rounded-lg">
-              <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0" />
-              <p className="text-sm text-red-800">{error}</p>
-            </div>
-          )}
-
-          {/* Summary Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl p-6 text-white shadow-lg">
-              <div className="p-3 bg-white/20 rounded-lg w-fit mb-4">
-                <Wallet className="h-6 w-6" />
-              </div>
-              <p className="text-blue-100 text-sm mb-1">Total Balance</p>
-              <p className="text-3xl font-bold">
-                {formatCurrency(
-                  summary?.total_balance ?? calculateTotalBalance()
-                )}
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-              <div className="p-3 bg-green-50 rounded-lg w-fit mb-4">
-                <TrendingUp className="h-6 w-6 text-green-600" />
-              </div>
-              <p className="text-gray-600 text-sm mb-1">Active Accounts</p>
-              <p className="text-3xl font-bold text-gray-900">
-                {summary?.accounts_count ?? accounts.length}
-              </p>
-            </div>
-
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-              <div className="p-3 bg-orange-50 rounded-lg w-fit mb-4">
-                <CreditCard className="h-6 w-6 text-orange-600" />
-              </div>
-              <p className="text-gray-600 text-sm mb-1">Account Types</p>
-              <div className="flex items-baseline space-x-2">
-                <p className="text-3xl font-bold text-gray-900">
-                  {summary?.savings_accounts ??
-                    accounts.filter((a) => a.discriminator === 'SA').length}
-                </p>
-                <span className="text-sm text-gray-500">SA</span>
-                <span className="text-gray-300">|</span>
-                <p className="text-3xl font-bold text-gray-900">
-                  {summary?.fixed_deposits ??
-                    accounts.filter((a) => a.discriminator === 'FD').length}
-                </p>
-                <span className="text-sm text-gray-500">FD</span>
-              </div>
-            </div>
+        {/* Active Accounts */}
+        <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-100
+                        hover:shadow-lg transition-all duration-200">
+          <div className="p-3 bg-emerald-50 rounded-xl w-fit mb-4">
+            <TrendingUp className="h-6 w-6 text-emerald-600" />
           </div>
 
-          {/* Accounts */}
-          <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-gray-900">
-              Recent Accounts
-            </h2>
-            <Link
-              to="/accounts"
-              className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 font-medium"
-            >
-              <span>View All</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+          <p className="text-gray-500 text-sm mb-1">Active Accounts</p>
+
+          <p className="text-3xl font-bold text-gray-900">
+            {summary?.accounts_count ?? accounts.length}
+          </p>
+        </div>
+
+        {/* Account Types */}
+        <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-100
+                        hover:shadow-lg transition-all duration-200">
+          <div className="p-3 bg-amber-50 rounded-xl w-fit mb-4">
+            <CreditCard className="h-6 w-6 text-amber-600" />
           </div>
 
-          {accounts.length === 0 ? (
-            <div className="bg-white rounded-xl p-12 text-center border border-gray-200">
-              <CreditCard className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
-                No accounts found
-              </h3>
-              <p className="text-gray-600">
-                You don't have any active accounts yet.
+          <p className="text-gray-500 text-sm mb-3">Account Types</p>
+
+          <div className="flex items-center gap-6">
+            <div>
+              <p className="text-2xl font-bold text-gray-900">
+                {summary?.savings_accounts ??
+                  accounts.filter(a => a.discriminator === 'SA').length}
               </p>
+              <p className="text-xs text-gray-500">Savings</p>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {accounts.map((account) => (
-                <AccountCard
-                  key={account.account_no}
-                  account={account}
-                />
-              ))}
+
+            <div className="h-8 w-px bg-gray-200" />
+
+            <div>
+              <p className="text-2xl font-bold text-gray-900">
+                {summary?.fixed_deposits ??
+                  accounts.filter(a => a.discriminator === 'FD').length}
+              </p>
+              <p className="text-xs text-gray-500">Fixed Deposit</p>
             </div>
-          )}
+          </div>
         </div>
       </div>
+
+      {/* Recent Accounts Header */}
+      <div className="mb-6 flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-gray-900">
+          Recent Accounts
+        </h2>
+
+        <Link
+          to="/accounts"
+          className="flex items-center gap-2 text-purple-600
+                     hover:text-purple-700 font-semibold transition"
+        >
+          <span>View All</span>
+          <ArrowRight className="h-4 w-4" />
+        </Link>
+      </div>
+
+      {/* Accounts Grid */}
+      {accounts.length === 0 ? (
+        <div className="bg-white rounded-2xl p-14 text-center border border-gray-200">
+          <CreditCard className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            No accounts found
+          </h3>
+          <p className="text-gray-600">
+            You don’t have any active accounts yet.
+          </p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {accounts.map(account => (
+            <div
+              key={account.account_no}
+              className="hover:-translate-y-1 transition-all duration-200"
+            >
+              <AccountCard account={account} />
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+   </>
     </>
   );
 };

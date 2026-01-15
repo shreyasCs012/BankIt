@@ -3,19 +3,17 @@ spring:
     gateway:
       routes:
 
-        # SBI user service
         - id: sbi-user-service
-          uri: http://localhost:8081
+          uri: http://localhost:8082   # SBI runs here
           predicates:
             - Path=/me/**
-            - Header=X-Bank-Code, SBI
+            - BankCode=SBI
 
-        # HDFC user service
         - id: hdfc-user-service
-          uri: http://localhost:8082
+          uri: http://localhost:8081   # HDFC runs here
           predicates:
             - Path=/me/**
-            - Header=X-Bank-Code, HDFC
+            - BankCode=HDFC
 
 jwt:
   secret: ThisIsAVeryLongSecretKeyForHS384AlgorithmAtLeast48BytesLong!!!

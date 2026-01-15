@@ -1,14 +1,37 @@
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { createContext, useEffect, useState } from "react";
 
-export const RootRedirect = () => {
-  const { isAuthenticated, loading } = useAuth();
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-  if (loading) {
-    return <div className="p-6 text-center">Loading...</div>;
-  }
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [customer, setCustomer] = useState<Customer | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  return isAuthenticated
-    ? <Navigate to="/dashboard" replace />
-    : <Navigate to="/login" replace />;
+  useEffect(() => {
+    const initAuth = async () => {
+      try {
+        const me = await authService.me();
+        setCustomer(me);
+      } catch {
+        setCustomer(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    initAuth();
+  }, []);
+
+  const value: AuthContextType = {
+    customer,
+    isAuthenticated: !!customer,
+    loading,        // ✅ PROVIDED
+    login,
+    logout,
+  };
+
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
 };

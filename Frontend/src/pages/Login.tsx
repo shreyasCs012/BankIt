@@ -9,7 +9,7 @@ import {
   AlertCircle,
   Building2,
 } from 'lucide-react';
-
+import bankitImg from '../assets/bankIt.png';
 export const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -67,12 +67,10 @@ export const Login = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-2xl mb-4">
-            <Landmark className="h-10 w-10 text-white" />
+          <div className="inline-flex items-center justify-center  rounded-2xl mb-4">
+            <img src={bankitImg} alt="BankIt Logo" className="w-52 h-36" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome to BankIt
-          </h1>
+
           <p className="text-gray-600">
             Secure banking at your fingertips
           </p>
@@ -153,7 +151,7 @@ export const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg transition-colors"
+              className="w-full bg-purple-900 hover:bg-blue-700 text-white py-3 rounded-lg transition-colors"
             >
               {loading ? 'Signing in…' : 'Sign In'}
             </button>

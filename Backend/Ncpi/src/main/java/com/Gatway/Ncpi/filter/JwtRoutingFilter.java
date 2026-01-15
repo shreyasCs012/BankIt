@@ -46,13 +46,18 @@ public class JwtRoutingFilter implements GlobalFilter, Ordered {
 
             String bankCode = claims.get("bankCode", String.class);
             String customerId = claims.get("bankCustomerId").toString();
-
+            // 🔍 JWT DEBUG LOGS
+            System.out.println("[Gateway] JWT sub = " + claims.getSubject());
+            System.out.println("[Gateway] JWT bankCode = " + bankCode);
+            System.out.println("[Gateway] JWT bankCustomerId = " + customerId);
             ServerHttpRequest mutatedRequest = exchange.getRequest()
                     .mutate()
                     .header("bankCode", bankCode)
                     .header("X-Bank-Customer-Id", customerId)
                     .build();
-
+            System.out.println("[Gateway] Forwarding headers:");
+            System.out.println("           X-Bank-Code = " + bankCode);
+            System.out.println("           X-Bank-Customer-Id = " + customerId);
             return chain.filter(exchange.mutate().request(mutatedRequest).build());
 
         } catch (Exception e) {
