@@ -30,10 +30,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const initAuth = async () => {
     try {
       const token = localStorage.getItem('token');
-      const customerId = localStorage.getItem('customerId');
+      console.log('🔄 Initializing auth with token:', token);
 
       // 🔐 No session → show login
-      if (!token || !customerId) {
+      if (!token) {
         setIsAuthenticated(false);
         setCustomer(null);
         setIsLoading(false);

@@ -11,21 +11,23 @@ export const apiClient = axios.create({
 apiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
-    const customerId = localStorage.getItem("customerId");
 
     console.log("➡️ API REQUEST:", config.method?.toUpperCase(), config.url);
-    console.log("➡️ JWT FROM STORAGE:", token);
-    console.log("➡️ CUSTOMER ID FROM STORAGE:", customerId);
 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    // Only attach JWT for requests going to the bank server (localhost:8080)
+    const url = config.url || "";
+    const isAbsolute = url.startsWith("http://") || url.startsWith("https://");
+    const isBankServer =
+      (!isAbsolute) || // relative paths → go to apiClient.baseURL (localhost:8080)
+      url.startsWith("http://localhost:8080") ||
+      (config.baseURL && config.baseURL.startsWith("http://localhost:8080"));
+
+    console.log("➡️ IS BANK SERVER:", isBankServer);
+
+    if (isBankServer && token) {
+      config.headers = config.headers || {};
+      (config.headers as any).Authorization = `Bearer ${token}`;
     }
-
-    if (customerId) {
-      config.headers["X-Bank-Customer-Id"] = customerId;
-    }
-
-    console.log("➡️ FINAL HEADERS:", config.headers);
 
     return config;
   },

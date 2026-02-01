@@ -98,7 +98,7 @@ export const Login = () => {
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="block w-full pl-10 py-3 border rounded-lg"
+                  className="block w-full pl-10 py-3 border rounded-lg text-gray-900 placeholder-gray-400 bg-white"
                   placeholder="Enter your username"
                   required
                   disabled={loading}
@@ -119,7 +119,7 @@ export const Login = () => {
                   type="password"   // ✅ FIXED
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full pl-10 py-3 border rounded-lg"
+                  className="block w-full pl-10 py-3 border rounded-lg text-gray-900 placeholder-gray-400 bg-white"
                   placeholder="Enter your password"
                   required
                   disabled={loading}
@@ -140,7 +140,7 @@ export const Login = () => {
                   type="text"
                   value={bankCode}
                   onChange={(e) => setBankCode(e.target.value)}
-                  className="block w-full pl-10 py-3 border rounded-lg"
+                  className="block w-full pl-10 py-3 border rounded-lg text-gray-900 placeholder-gray-400 bg-white"
                   placeholder="HDFC / SBI / ICICI"
                   required
                   disabled={loading}
